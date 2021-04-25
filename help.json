@@ -1,0 +1,95 @@
+[
+    {
+        "class":"WrapLabel",
+        "bold": true,
+        "underline": false,
+        "halign":"center",
+        "font_size":"27sp",
+        "text":"Gravity"
+    }, {
+        "class":"Separator"
+    }, {
+        "class":"WrapLabel",
+        "padding": [10,2],
+        "line_height": 1.2,
+        "text":"Gravity is an app that simulates the trajectory of planets, stars and bodies that you can create, based on gravitational forces between them in 2 dimensions. The bodies are treated as point masses, and the simulation is based on Newtonian physics."
+    }, {
+        "class":"WrapLabel",
+        "padding": [10,2],
+        "markup":true,
+        "line_height": 1.2,
+        "text":"The layout & functionality of the app is distributed between 4 tabs - [b][i]Create[/b][/i], [b][i]Simulation[/b][/i], [b][i]Calculators[/b][/i] and [b][i]Settings[/b][/i]"
+    }, {
+        "class":"Separator"
+    }, {
+        "class":"WrapLabel",
+        "padding": [10,2],
+        "markup":true,
+        "line_height": 1.2,
+        "text":"The [size=35][u][b][i] Create [/b][/i][/u][/size] tab is where objects to be simulated are listed and their parameters like initial position, mass, initial velocity, etc are specified. Create a new object by clicking the   [b][color=99e5ff][font=fonts/Iconize-Italic][size=30]+ [/size][/font] Add  [/color][/b]   button. This will add a new element to the space in the create panel that looks like this - "
+    }, {
+        "class":"Image",
+        "source":"icons/help_planetinput.png"
+    }, {
+        "class":"WrapLabel",
+        "padding":[10,2],
+        "markup": true,
+        "line_height": 1.2,
+        "text":"Each field in this widget sets a value for the object that will be used in the simulation. The Trail is the maximum number of points in the line drawn behind the body as it moves. When this length is reached, the line will start being erased from the first end. The red [color=cc1919][font=fonts/Iconize-Bold][size=35] X [/size][/font][/color] button on the right will delete that widget. The system of units used is arbitrary. The position and velocity components can be specified either in the Cartesian (x, y) system - which is default - or Polar (change this in settings). The Radius is purely visual, besides being used to check for collisions, if enabled. By default, it is auto-calculated based on the mass, to keep the bodies' size proportional to their weights, but this feature can be disabled in settings."
+    }, {
+        "class":"WrapLabel",
+        "padding":[10,2],
+        "markup":true,
+        "line_height": 1.2,
+        "text":"   Each of the text fields accepts only numeric characters. Use the standard clicks and keyboard shortcuts for selecting / copying / pasting text. Floating point scientific notation (E.g. [i]8.2e-5[/i] instead of [i]0.000082[/i]) can also be used. The text colour will change to red if the value entered is invalid. If the background of the text field is grey, it is read-only. Leaving a field blank will replace its value with 0.0 when the simulation runs.\n\n   Once all the objects have been created, press the    [b][color=99e599][font=fonts/Iconize-Italic][size=30]→  [/size][/font] Run  [/color][/b]   button to process all the data and begin the simulation. If there is an error, such as an invalid value, a popup dialog will open, specifying it. If the numbers are fine, the app will switch to the [i]Simulation[/i] tab and begin animating the simulation.\n\n    You can also save the data of all the objects that you entered by clicking the [b][font=fonts/Iconize][size=30] s [/size][/font] Save  [/b] button. This will open a popup with a file chooser to let you pick a save locationon your device, and filename for the file. If you are unable to access some locations on your computer (such as a different disk drive on Windows), try changing the [i]File chooser root path[/i] address in Settings. Click [b]Save[/b] to save the file. By default, the file has a [i].gty[/i] extension and internally contains JSON-formatted data. Some of the current app settings and parameters that affect the simulation are also saved in the file, so that it won't behave oddly or differently if you run it again with changed settings. \n    Click the [b][font=fonts/Iconize][size=30] o [/size][/font] Load   [/b] button to load one such saved file and automatically add the objects defined there. You can also choose to load just the objects and not the settings saved with them if you prefer, from the confirmation dialog that will pop up afterwards. Loading a file does not remove any bodies you have already defined, it just adds them to the end of the list.\n    Press [b][font=fonts/Iconize-Italic][size=30] e [/size][/font] Clear   [/b]to delete all the bodies you have currently defined.\n    The [color=bfbf72][b][font=fonts/Iconize-Italic][size=30] c [/size][/font] Templates   [/b][/color] menu contains a few sets of pre-defined objects that you can load in and run, as examples of systems that you can create."
+    }, {
+        "class":"Separator"
+    }, {
+        "class":"WrapLabel",
+        "padding": [10,2],
+        "markup":true,
+        "line_height": 1.2,
+        "text":"The [size=35][u][b][i] Simulation [/b][/i][/u][/size] tab is where the simulation will take place in real time, and the bodies moving along their trajectory will be animated in the app window. The [b][i]Status : [/i][/b] icon at the top right of the app displays the current state of the simulation - a green clock with check mark if it is running / a yellow hourglass if it has been paused / or a red cancel symbol if it is not running. Each body is drawn as a circle using its colour and radius, and also marks a trail behind it as it moves. The animation starts, by default, looking at the center (0,0) of the simulated area, at 100% scale and no rotation - these can be changed in the settings. The simulator background is a dark grey / black colour, and there is a grid of dashed lines spaced 100 units apart. This colour and the grid visibility can also be customised."
+    }, {
+        "class":"Image",
+        "source":"icons/help_simulator.png"
+    }, {
+        "class":"WrapLabel",
+        "padding": [10,2],
+        "markup":true,
+        "line_height": 1.2,
+        "text":"   You can move around the simulated area, zoom in/out and rotate it like a digital map. To do this with keyboard or mouse, left-click and drag in the simulator area to move across the map. Right click anywhere on the screen to place a maroon dot [color=960000][font=fonts/Iconize]1[/font][/color] on the app window. While this dot exists, click and drag to zoom or rotate about that anchor. Left click on the dot again to remove it.\nOn a touchscreen device, use the standard swipe / drag / pinch / rotate gestures to do all of this. \nThere are also a number of controls at the top of the window - \n  [size=35][color=33b219][font=fonts/Iconize]PK[/font][/color][/size] to Play/Pause the simulation, \n  [size=35][font=fonts/Iconize]l  u  d  r[/font][/size] to move Left / Up / Down / Right by one step respectively, \n  [size=35][font=fonts/Iconize-Bold]L[/font][/size]  to center the origin [(0, 0) coordinate] in the field of view\n  [size=35][font=fonts/Iconize-Italic]#  $  f[/font][/size] to zoom in/out one step, or zoom to 100% scale, \n  [size=35][font=fonts/Iconize-Bold]y  z  )[/font][/size] to rotate the field of view clockwise / anticlockwise, or set rotation back to normal (0°), \n  [size=35][color=66b2ff][b][font=fonts/Iconize-Italic]ū[/font][/b][/color][/size] to toggle on/off displaying the current Simulation Info on the window, \n  [size=35][font=fonts/Iconize]C[/font][/size] to save a screenshot of the current simulation state as a [i]PNG[/i] image, \n  [size=35][color=e53333][font=fonts/Iconize-Italic]/[/font][/color][/size] to delete the drawings currently made on the canvas (the animation will continue normally from the current state), and\n  [size=35][color=e53333][font=fonts/Iconize],[/font][/color][/size] to stop the simulation (This will permanently end the simulation, unlike pausing, and you can only re-run it from the beginning)."
+    }, {
+        "class":"WrapLabel",
+        "padding":[10,2],
+        "markup":true,
+        "line_height":1.2,
+        "text":"   The simulated area is not infinite, but extends upto 10,000 distance units away from the center by default - this limit can be changed in the settings. Any bodies that cross the boundary are removed from the simulation. The bodies that get updated, within the region, are considered active. The simulation will automatically stop if there are zero active objects.\n   Based on the [i]Calculation interval[/i] setting, the system is regularly updated while it is running, by re-calculating the new positions & velocities of all the active bodies based on their previous ones. The time increment in-simulation (in the arbitrary system of units) at each update is the parameter [i]dt[/i], and is typically very small. The animation can take place at an independent rate (editable in the Graphics settings), but always shows the current state of the simulation when redrawn.\n   When the simulation is resumed after being paused, it reads some of the app settings such as the value of G, calculation interval, etc again. Hence you can pause it in the middle to alter some of these settings  if you want to, and have them take effect immediately.\n   [i]Collision[/i] is another feature of the simulation - If enabled (On by default), two bodies that are sufficiently close/overlapping are both removed from the simulation (considered 'collided') and a new body is created in their place - with mass equal to the sum of their masses, at the position of their center of mass, with velocity equal to some fraction (1.0 by default) of the vector sum of their velocities. This new body continues interacting with other active bodies in the simulation. If collisions are disabled, bodies can effectively pass through each other. If, by chance, they are at the [i]exact[/i] same location at the same time, that update is ignored (calculation is not possible since 2 bodies cannot theoretically have zero seperation). If their velocities are also same, so that they might remain coinciding, the velocities are changed by 1 unit in the  +ve direction."
+    }, {
+        "class":"Separator"
+    }, {
+        "class":"WrapLabel",
+        "line_height":1.2,
+        "markup":true,
+        "padding":[10, 2],
+        "text":"The [size=35][u][b][i] Calculators [/b][/i][/u][/size] tab provides a method for quickly calculating certain orbital parameters such as orbital velocity and time period, for a 2-body Newtonian system. These may be accurate only for one (lighter) body orbiting [i]relative to[/i] another (massive) body. Deviations occur in a multiple-body system, or if the 2 bodies have comparable masses.\n   There are 6 fields corresponding to various parameters - [b]G[/b], [b]M[/b], [b]R[/b], [b]T[/b], [b]v[/b] and [b]v[sub]esc[/sub][/b]. Each field also has a short description accompanying it. Enter [b]any three[/b] of the parameters, and the remaining will be automatically calculated and filled in based on those. These three knowns can be any combination, except those that include both the orbital and escape velocities, since they are linearly dependent quantities - so an extra value is required in that case.\nIf more than 3 values are given, the priority for selecting knowns to base the calculation on is - \n(1) The Gravitational constant, G, is an app setting (also editable in Settings - the field here is read-only) which is always known.\n(2) The value that the user is typing in / that was most recently changed.\n(3) One other value, which is the first known one (besides these) in the same order that they are listed (starting with M and ending with v[sub]esc[/sub]).\n You can clear all the text fields using the [size=30][font=fonts/Iconize-Italic] e [/font]Clear All [/size] button. Only positive numbers are considered valid for calculation. Like the numeric fields in the Create tab, the text will turn red if a value entered is invalid."
+    }, {
+        "class":"Separator"
+    }, {
+        "class":"WrapLabel",
+        "line_height":1.2,
+        "markup":true,
+        "padding":[10,2],
+        "text":"The [size=35][u][b][i] Settings [/b][/i][/u][/size] tab contains all the app settings. They are distrubuted into 2 menus - [b][i]Technical[/b][/i] and [b][i] Graphics & App [/i][/b] - which are accesible from the sidebar on the left of the settings tab area. Within each menu is a list with the Setting Titles, short descriptions of what the settings do, and their current values. Click on a list item to change that setting.\n   The technical list contains all the settings that are used for the calculation and trajectory simulation - such as the Gravitational constant value, time intervals, collision settings, etc. The Graphics & App list contains settings related to the simulator animation, drawing quality, screenshots etc.\n   Note : Many of the numeric settings do not accept any value, but only numbers within some upper/lower limits. If you enter a number that is too large or too small, it will display a warning dialog and revert to a default value. Currently, in such cases when the app changes a setting automatically (such as when loading a saved model from file), the settings panel may not display the newly changed value till the app is restarted. \n   The settings do not include the default Kivy settings that will affect all kivy-based apps on your device. Pressing [i]Close[/i] at the bottom of the sideber will return you to the Create tab, or Simulation tab if a simulation is running/paused."
+    }, {
+        "class":"Separator"
+    }, {
+        "class":"WrapLabel",
+        "font_size":"18sp",
+        "italic":true,
+        "halign":"center",
+        "text":"The End"
+    }, {
+        "class":"Separator"
+    }
+]

@@ -1,0 +1,89 @@
+[
+	{	"type": "title",
+	 	"title": "Simulation Parameters"	},
+	{
+		"type": "numeric",
+	 	"title":"Gravitational Constant (G)",
+	 	"desc":"Value of the gravitational constant - Larger values increase the strength of gravitational forces between all bodies",
+	 	"section":"sim",
+	 	"key":"const_G"
+	},
+	{
+		"type":"numeric",
+		"title":"Time interval (dt)",
+		"desc":"Time in-simulation that passes at each updation of the system - Smaller values increase the simulation accuracy.",
+		"section":"sim",
+		"key":"const_dt"
+	},
+	{
+		"type":"numeric",
+		"title":"Calculation Frequency",
+		"desc":"Maximum rate (updates per second) in real-time at which the next set of calculations are performed on the system. Use this to control the speed of simulation and CPU load.",
+		"section":"sim",
+		"key":"f_calc"
+	},
+	{
+		"type":"numeric",
+		"title":"Boundary",
+		"desc":"The boundary distance (±x, ±y) from origin of the simulation area - Objects which cross this boundary are removed from all calculations.",
+		"section":"sim",
+		"key":"bound"
+	},
+	{
+		"type":"bool",
+		"title":"Randomize",
+		"desc":"Change time interval dt by a very small random amount each frame, which can create different trajectories for the same objects each time the simulation runs.",
+		"section":"sim",
+		"key":"randomize"
+	},
+	{
+		"type":"title",
+		"title":"Planet/Object Properties"
+	},
+	{
+		"type":"bool",
+		"title":"Polar coordinates",
+		"desc":"Input and display vectors using polar coordinates (dist. from origin, angle) instead of cartesian (x, y)",
+		"section":"obj",
+		"key":"polar"
+	},
+	{
+		"type":"bool",
+		"title":"Auto-calculate radius",
+		"desc":"Automatically calculate radius of all objects from their masses based on a density constant, so that the sizes/areas visible in the animation are proportional to their heaviness",
+		"section":"obj",
+		"key":"autoradius"
+	},
+	{
+		"type":"numeric",
+		"title":"Density constant",
+		"desc":"Increase/decrease this number to adjust the automatically calculated radii of planets (if enabled)",
+		"section":"obj",
+		"key":"r_const"
+	},
+	{
+		"type":"title",
+		"title":"Collision"
+	},
+	{
+		"type":"bool",
+		"title":"Enable collisions",
+		"desc":"Collide and merge 2 planets/objects when they meet. Disabling this will allow all objects to pass through each other, possibly leading to unexpected results or crashes.",
+		"section":"collision",
+		"key":"allow_collide"
+	},
+	{
+		"type":"numeric",
+		"title":"Proximity for collision",
+		"desc":"Seperation of 2 bodies, as a fraction (0.0 - 1.0) of the sum of their radii, to trigger a collision (if enabled)",
+		"section":"collision",
+		"key":"r_frac"
+	},
+	{
+		"type":"numeric",
+		"title":"Velocity loss",
+		"desc":"The fraction (0.0 - 1.0) of the resultant velocity of 2 colliding bodies that is retained by the merged body after a collision (if enabled). If this is less than 1, energy will be lost each collision.",
+		"section":"collision",
+		"key":"v_frac"
+	}
+]

@@ -1,0 +1,30 @@
+[
+    {
+        "name":"Binary Stars 1",
+        "path":"templates/binst1.gty"
+    }, {
+        "name":"Binary Stars 2",
+        "path":"templates/binst2.gty"
+    }, {
+        "name":"Chaos",
+        "path":"templates/chaos1.gty"
+    }, {
+        "name":"Collisions",
+        "path":"templates/collision.gty"
+    }, {
+        "name":"Comet",
+        "path":"templates/comet.gty"
+    }, {
+        "name":"Planet & Moon 1",
+        "path":"templates/moon1.gty"
+    }, {
+        "name":"Planets & Moons 2",
+        "path":"templates/moon2.gty"
+    }, {
+        "name":"Orbital Resonance 1:2:4",
+        "path":"templates/Tperiod124.gty"
+    }, {
+        "name":"Orbital Resonance 1:3:7:11",
+        "path":"templates/Tperiod13711.gty"
+    }
+]

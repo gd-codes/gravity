@@ -1,0 +1,13 @@
+# Python venv
+bin/
+lib/
+include/
+pyvenv.cfg
+
+# App setting file
+gravity.ini
+
+# others
+__pycache__
+.vscode
+.DS_Store

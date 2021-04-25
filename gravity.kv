@@ -1,0 +1,521 @@
+#:kivy 1.11.0
+
+#:import ucd unicodedata
+#:import Clrchooser customwidgets.ColourChooserPopup
+#:import SaveDialog customwidgets.SaveFileDialog
+#:import OpenDialog customwidgets.OpenFileDialog
+#:import BGLabel customwidgets.BGLabel
+#:import StencilBox customwidgets.StencilBox
+#:import NumEntry customwidgets.NumEntry
+
+<Spacer@Widget>:
+	size_hint: 0.15, 0.15
+	
+<MButton@Button>:
+	markup: True
+	size_hint_x: 0.9
+	
+<IconButton@Button>:
+	markup: True
+	font_size: '32dp'
+	background_normal: 'icons/blackbg2.png'
+	border: [10,1,1,1]
+	#text_size: self.size
+	size_hint_x: 0.8
+<IconToggleButton@ToggleButton>:
+	markup: True
+	font_size: '32dp'
+	background_normal: 'icons/blackbg2.png'
+	background_down: 'icons/whitebg3.png'
+
+<Sep@Image>:
+	source: 'atlas://data/images/defaulttheme/separator'
+	size_hint: (None, 1)
+	allow_stretch: True
+	keep_ratio: False
+	width: '4dp'
+
+<GravityAppUI>:
+
+	tabpanel: tabpanel
+	acnview: acnview
+	createtab: createtab
+	simultab: simultab
+	calctab: calctab
+	settingtab: settingtab
+	
+	createarea: createarea
+	templatebtn: templatebtn
+	simulator: simulator
+	calculators: calculators
+	
+	BoxLayout:
+		orientation: 'vertical'
+		
+		ActionBar:
+			ActionView:
+				id: acnview
+				ActionPrevious:
+					with_previous: False
+					app_icon: "icons/Solar-system.png"
+					title: "Gravity"
+					on_release: app.root.infodialog.open()
+				ActionButton:
+					text: "Info"
+					on_release: app.root.helpdialog.open()
+				ActionLabel :
+					text: "Status : "
+				ActionButton : 
+					background_normal: "icons/transparent.png"
+					background_down: "icons/transparent.png"
+					icon: root.simulator.simstateicon
+					color: root.simulator.simstatecolour
+					text: root.simulator.simstatetext
+				
+		TabbedPanel:
+			id: tabpanel
+			#border: [0,0,0,0]
+			#strip_border: [0,0,0,0]
+			tab_pos: root.tabpos
+			tab_width: self.height // len(self.tab_list) if ('left' in self.tab_pos or 'right' in self.tab_pos) else self.width // len(self.tab_list)
+			tab_height: '35dp'
+			do_default_tab: False
+			
+			TabbedPanelItem:
+				id: createtab
+				text: "Create"
+				
+				BoxLayout:
+					orientation: 'vertical'
+					Label:
+						size_hint_y: None
+						height: '15dp'
+					BoxLayout:
+						id: createcontrols
+						size_hint: 1, None
+						height: '50dp'
+						pos_hint: {'top':1}
+						Spacer:
+						MButton:
+							text: u" [font=fonts/Iconize-Italic][size=30]+ [/size][/font] Add   "
+							color: [0.6, 0.9, 1, 1]
+							background_color: [0, 0, 0.5, 1]
+							on_release: root.addobj()
+						MButton:
+							text: u" [font=fonts/Iconize-Italic][size=30]{} [/size][/font] Run   ".format(ucd.lookup('RIGHTWARDS ARROW'))
+							color: [0.6, 0.9, 0.6, 1]
+							background_color: [0.1, 0.4, 0, 1]
+							on_release: root.run()
+						MButton:
+							text: u"[font=fonts/Iconize][size=30] s [/size][/font] Save   "
+							on_release: SaveDialog(rootdir=app.config.get('app', 'rootpath'), show=True, action=root.savetofile, fileobj=True, ext='.gty')
+						MButton:
+							text: u"[font=fonts/Iconize][size=30] o [/size][/font] Load   "
+							on_release: OpenDialog(rootdir=app.config.get('app', 'rootpath'), show=True, action=root.loadfile, fileobj=True)
+						MButton:
+							text: u"[font=fonts/Iconize-Italic][size=30] e [/size][/font] Clear   "
+							on_release: root.clearinputs()
+						Spinner:
+							id: templatebtn
+							markup: True
+							text_autoupdate: False
+							background_color: [0.75, 0.75, 0.45, 1]
+							text: u"[font=fonts/Iconize-Italic][size=30] c [/size][/font] Templates   "
+							values: 'a', 'b', 'c'
+							on_text: root.loadtemplate(text=self.text)
+						Spacer:
+					Label:
+						size_hint_y: None
+						height: '15dp'
+						
+					#Spacer:
+					ScrollView:
+						id: create_scrollarea
+						size_hint: 1, 1
+						do_scroll_y: True
+						bar_width: '10dp'
+						scroll_type: ['bars', 'content']
+						canvas.before:
+							Color:
+								rgba: 0.05, 0.05, 0.05, 1
+							Rectangle:
+								size: self.size
+								pos: self.pos
+						BoxLayout:
+							id: createarea
+							height: self.minimum_height
+							padding: '10dp'
+							size_hint_y: None
+							orientation: 'vertical'
+							on_children: root._updateinputindices()
+							Label:
+								size_hint_y: None
+								height: '30dp'
+								halign: 'left'
+								font_size: '14dp'
+								color: [0.8, 0.8, 0.8, 1]
+								text: "Add objects to be simulated and specify their initial coordinates and parameters here : "
+							SettingSpacer:
+							
+						
+				
+			TabbedPanelItem:
+				id: simultab
+				text: "Simulation"
+				
+				Simulator:
+					id: simulator
+					
+				
+			TabbedPanelItem:
+				id: calctab
+				text: "Calculators"
+
+				ScrollView:
+					id: calc_scrollarea
+					size_hint: 1, 1
+					do_scroll_y: True
+					bar_width: '10dp'
+					scroll_type: ['bars', 'content']
+					canvas.before:
+						Color:
+							rgba: 0.05, 0.05, 0.05, 1
+						Rectangle:
+							size: self.size
+							pos: self.pos
+					BoxLayout:
+						orientation: "vertical"
+						height: self.minimum_height
+						padding: '10dp'
+						size_hint_y: None
+						Label:
+							size_hint_y: None
+							height: '50dp'
+							halign: 'center'
+							font_size: '14dp'
+							color: [0.8, 0.8, 0.8, 1]
+							line_height: 1.5
+							text: "Solve simple equations for a 2 body Newtonian system\nEnter any values below and the rest will be automatically calculated when there is enough info."
+						SettingSpacer:
+
+						Calculators:
+							id: calculators
+
+				
+			TabbedPanelItem:
+				id: settingtab
+				text: "Settings"
+				on_release: app.open_settings()
+
+
+<PlanetInput>:
+	orientation: 'vertical'
+	size_hint: 1, None
+	height: '140dp' #self.minimum_height
+	
+	idlbl: idlbl
+	colour: colour
+	mass: mass
+	radius: radius
+	trail: trail
+	pos0: pos0
+	pos1: pos1
+	vel0: vel0
+	vel1: vel1
+	close: close
+	
+	BoxLayout:
+		orientation: 'horizontal'
+		spacing: '10dp'
+		padding: '20dp'
+		BGLabel :
+			id: idlbl
+			size_hint_x: None
+			width: '30dp'
+			text: str(root.index)
+			bgcolour: root.inicolour
+		BoxLayout:
+			orientation: 'vertical'
+			spacing: '5dp'
+			GridLayout:
+				rows: 1
+				Label:
+					text: "Colour : "
+				Button:
+					id: colour
+					text: "Change"
+					font_size: '10dp'
+					background_color: root.inicolour
+					on_release: Clrchooser(colour=self.background_color, action=root.setcolour, show=True)
+				Label:
+					text: "Mass : "
+				NumEntry:
+					id: mass
+					on_text: root.find_rad()
+				Label :
+					text: "Radius : "
+				NumEntry:
+					id: radius
+					readonly: root.autoradius
+					cursor_blink: False
+			GridLayout:
+				rows: 1
+				Label:
+					size_hint_x: 0.2
+					text: "Trail : {}".format(int(root.t_scale*trail.value))
+				Slider:
+					id: trail
+					min: 0
+					max: 2000
+					step: 1
+					value: 200
+		GridLayout:
+			cols: 2
+			spacing: '5dp'
+			Label: 
+				text: " Position : "
+			Label: 
+				text: " Velocity : "
+			NumEntry:
+				id: pos0
+				hint_text: "Mag." if root.usepolar else "X" #"Dist." if bool(app.config.getint('sim', 'polar')) else "X"
+			NumEntry:
+				id: vel0
+				hint_text: "Mag." if root.usepolar else "X"
+			NumEntry:
+				id: pos1
+				hint_text: "Dir." if root.usepolar else "Y"
+			NumEntry:
+				id: vel1
+				hint_text: "Dir." if root.usepolar else "Y"
+		MButton:
+			id: close
+			size_hint: 0.2, 0.95
+			color: [0.8, 0.1, 0.1, 1]
+			background_color: [0.8, 0, 0, 0.4]
+			text: "[font=fonts/Iconize-Bold][size=50]X[/size][/font]"
+			on_release: app.root.createarea.remove_widget(root)
+	SettingSpacer:
+		height: '5dp'
+			
+
+<Simulator>:
+	orientation: "vertical"
+	
+	simcontrols: simcontrols
+	scatter: scatter
+	viewer: viewer
+	ppbtn: ppbtn
+	
+	BoxLayout:
+		id: simcontrols
+		size_hint: (1, None)
+		height: '60dp'
+		pos_hint: {'left':0, 'right':1, 'top':1}
+		padding: [8, 6]
+		
+		IconToggleButton:
+			markup: True
+			id: ppbtn
+			font_size: '32dp'
+			color: [0.2, 0.7, 0.1, 1]
+			text: "[font=fonts/Iconize]PK[/font]"
+			on_state: root.playpause(self.state)
+		Sep:
+		IconButton:
+			text: "[font=fonts/Iconize]l[/font]"
+			on_release: root.translate_left()
+		IconButton:
+			text: "[font=fonts/Iconize]u[/font]"
+			on_release: root.translate_up()
+		IconButton:
+			text: "[font=fonts/Iconize]d[/font]"
+			on_release: root.translate_down()
+		IconButton:
+			text: "[font=fonts/Iconize]r[/font]"
+			on_release: root.translate_right()
+		IconButton:
+			text: "[font=fonts/Iconize-Bold]L[/font]"
+			on_release: root.translate_origin()
+		Sep:
+		IconButton:
+			text: "[font=fonts/Iconize-Italic]#[/font]"
+			on_release: root.zoom_in()
+		IconButton:
+			text: "[font=fonts/Iconize-Italic]$[/font]"
+			on_release: root.zoom_out()
+		IconButton:
+			text: "[font=fonts/Iconize-Italic]f[/font]"
+			on_release: root.zoom_normal()
+		Sep:
+		IconButton:
+			text: "[font=fonts/Iconize-Bold]y[/font]"
+			on_release: root.rotate_cw()
+		IconButton:
+			text: "[font=fonts/Iconize-Bold]z[/font]"
+			on_release: root.rotate_anticw()
+		IconButton:
+			text: "[font=fonts/Iconize-Bold])[/font]"
+			on_release: root.rotate_normal()
+		Sep:
+		IconToggleButton:
+			markup: True
+			font_size: '32dp'
+			color: [0.4, 0.7, 1, 1]
+			text: "[font=fonts/Iconize-Italic]{}[/font]".format(ucd.lookup('LATIN SMALL LETTER U WITH MACRON'))
+			on_state: root.showhidedata(self.state)
+		Sep:
+		IconButton:
+			#color: [0.5, 0.1, 0.7, 1]
+			text: "[font=fonts/Iconize]C[/font]"
+			on_release: root.screenshot()
+		Sep:
+		IconButton:
+			color: [0.9, 0.2, 0.2, 1]
+			text: "[font=fonts/Iconize-Italic]/[/font]"
+			on_release: root.delete()
+		Sep:
+		IconButton:
+			color: [0.9, 0.2, 0.2, 1]
+			text: "[font=fonts/Iconize],[/font]"
+			on_release : root.stop()
+	
+	StencilBox:
+		size: self.size
+		pos: self.pos
+		id: viewer
+		
+		ScatterPlane:
+			id: scatter
+			size_hint: (0.95, 0.95)
+			auto_bring_to_front: False
+			on_transform_with_touch: root._changesystemoffset()
+
+		
+<Calculators>:
+	orientation: "vertical"
+	size_hint: 1, None
+	height: self.minimum_height
+
+	cf_G: cf_G
+	cf_M: cf_M
+	cf_R: cf_R
+	cf_v_orb: cf_v_orb
+	cf_v_esc: cf_v_esc
+	cf_T: cf_T
+
+	BoxLayout:
+		size_hint: 1, None
+		height: '270dp'
+		Image:
+			source: "./icons/diagram.png"
+			size_hint: 0.333, 1
+			#size_hint_max_x: 0.3334
+			#height: '300dp'
+		GridLayout:
+			cols: 3
+			padding: '12dp'
+			spacing: '10dp'
+			size_hint: 0.666, 0.8
+			#size_hint_max_x: 0.6666
+			on_children: root.on_children(self, self.children)
+			Spacer:
+				size_hint: (None, 0.5)
+			MButton:
+				text: u"[font=fonts/Iconize-Italic][size=30] e [/size][/font]Clear All "
+				on_release: root.clearinputs()
+				size_hint: (0.25, 0.5)
+			Spacer:
+				size_hint: (None, 0.5)
+			Image:
+				size_hint_x: None
+				source: "./icons/eqn_G.png"
+			NumEntry:
+				size_hint_x: 0.2
+				id: cf_G
+				readonly: True
+				text: app.config.get('sim', 'const_G')
+			Label:
+				markup: True
+				halign: 'left'
+				padding_x: '10dp'
+				text_size: self.width, None
+				text: "[size=36]Gravitiational Constant ([b]G[/b])[/size]\n[size=25]A universal scale factor to adjust the strength of forces between bodies.\n[i]Change this in Settings[/i][/size]"
+			Image:
+				size_hint_x: None
+				source: "./icons/eqn_M.png"
+			NumEntry:
+				size_hint_x: 0.2
+				id: cf_M
+				autovalidate: False
+				ontext_callbacks: [root.valueupdate]
+			Label:
+				markup: True
+				halign: 'left'
+				padding_x: '10dp'
+				text_size: self.width, None
+				text: "[size=36]Central Mass ([b]M[/b])[/size]\n[size=25]Mass of the central body around which the other planet is orbiting.[/size]"
+			Image:
+				size_hint_x: None
+				source: "./icons/eqn_R.png"
+			NumEntry:
+				size_hint_x: 0.2
+				id: cf_R
+				autovalidate: False
+				ontext_callbacks: [root.valueupdate]
+			Label:
+				markup: True
+				halign: 'left'
+				padding_x: '10dp'
+				text_size: self.width, None
+				text: "[size=36]Orbit Radius ([b]R[/b])[/size]\n[size=25]Centre-to-centre distance between the 2 orbiting bodies at some point of time[/size]"
+
+	GridLayout:
+		cols: 3
+		padding: '12dp'
+		spacing: '10dp'
+		size_hint: 1, None
+		height: '200dp'
+		on_children: root.on_children(self, self.children)
+		Image:
+			size_hint_x: 0.25
+			source: "./icons/eqn_T.png"
+		NumEntry:
+			size_hint_x: 0.2
+			id: cf_T
+			autovalidate: False
+			ontext_callbacks: [root.valueupdate]
+		Label:
+			markup: True
+			halign: 'left'
+			padding_x: '10dp'
+			text_size: self.width, None
+			text: "[size=36]Time Period ([b]T[/b])[/size]\n[size=25]The time it will take to complete a circular orbit at speed [b][i]v[/i][/b] and distance [b][i]R[/i][/b].[/size]"
+		Image:
+			size_hint_x: 0.25
+			source: "./icons/eqn_v-orb.png"
+		NumEntry:
+			size_hint_x: 0.2
+			id: cf_v_orb
+			autovalidate: False
+			ontext_callbacks: [root.valueupdate]
+		Label:
+			markup: True
+			halign: 'left'
+			padding_x: '10dp'
+			text_size: self.width, None
+			text: "[size=36]Orbital Velocity ([b]v[/b])[/size]\n[size=25]Speed at which the orbiting body will follow a perfectly circular orbit at distance [i][b]R[/b][/i].[/size]"
+		Image:
+			size_hint_x: 0.25
+			source: "./icons/eqn_v-esc.png"
+		NumEntry:
+			size_hint_x: 0.2
+			id: cf_v_esc
+			autovalidate: False
+			ontext_callbacks: [root.valueupdate]
+		Label:
+			markup: True
+			halign: 'left'
+			padding_x: '10dp'
+			text_size: self.width, None
+			text: "[size=36]Escape Velocity ([b]v[/size][size=18]esc[/size][size=32][/b])[/size]\n[size=25]Speed at or above which the body will not complete an orbit, but fly off into space instead.[/size]"

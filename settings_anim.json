@@ -1,0 +1,127 @@
+[
+	{
+		"type":"title",
+		"title":"Animation Controls"
+	},
+	{
+		"type":"numeric",
+		"title":"Graphics update frequency",
+		"desc":"Maximum rate (fps) at which the animation frames are updated on screen. This is independent of the Calculation frequency, and can be used to reduce GPU load.",
+		"section":"anim",
+		"key":"f_draw"
+	},
+	{
+		"type":"colour",
+		"title":"Background colour",
+		"desc":"Background colour of the animation canvas, as an RGBA value",
+		"section":"anim",
+		"key":"bgcolor"
+	},
+	{
+		"type":"numeric",
+		"title":"Trail point distance",
+		"desc":"Minimum distance between 2 postitions of an object for them to be included seperately as points in the trail line drawn for the object, if enabled. (Decreasing this makes the line smoother, but increases calculation load)",
+		"section":"anim",
+		"key":"tpdist"
+	},
+	{
+		"type":"bool",
+		"title":"Show axes",
+		"desc":"Draw the coordinate axes and boundaries on the animation canvas",
+		"section":"anim",
+		"key":"ax_visible"
+	},
+	{
+		"type":"numeric",
+		"title":"Initial X coordinate",
+		"desc":"X coordinate of the position at the centre of the screen when the simulation starts (in px)",
+		"section":"anim",
+		"key":"ini_x"
+	},
+	{
+		"type":"numeric",
+		"title":"Initial Y coordinate",
+		"desc":"Y coordinate of the position at the centre of the screen when the simulation starts (in px)",
+		"section":"anim",
+		"key":"ini_y"
+	},
+	{
+		"type":"numeric",
+		"title":"Initial Zoom",
+		"desc":"Zoom level of the screen when the simulation starts (as percentage)",
+		"section":"anim",
+		"key":"ini_z"
+	},
+	{
+		"type":"numeric",
+		"title":"Initial Rotation",
+		"desc":"Rotation of the screen when the simulation starts (in degrees)",
+		"section":"anim",
+		"key":"ini_r"
+	},
+	{
+		"type":"numeric",
+		"title":"Translation Step Size",
+		"desc":"Number of pixels to shift each time while moving up/down/right/left",
+		"section":"anim",
+		"key":"move_step"
+	},
+	{
+		"type":"numeric",
+		"title":"Scaling Step Size",
+		"desc":"Percentage to change zoom level by each time while zooming in/out",
+		"section":"anim",
+		"key":"zoom_step"
+	},
+	{
+		"type":"numeric",
+		"title":"Rotation Step Size",
+		"desc":"Degrees to rotate by each time while rotating the canvas clockwise/anticlockwise",
+		"section":"anim",
+		"key":"turn_step"
+	},
+	{
+		"type":"title",
+		"title":"App settings"
+	},
+	{
+		"type":"options",
+		"title":"Tab positions",
+		"desc":"The location of the app tabs in the window",
+		"options": ["top", "left", "right", "bottom"],
+		"section":"app",
+		"key":"tabpos"
+	},
+	{
+		"type":"string",
+		"title":"File Chooser Rootpath",
+		"desc":"Enter a string that is the topmost accessible directory of the the app's file choosers, can be left blank",
+		"key":"rootpath",
+		"section":"app"
+	},
+	{
+		"type":"title",
+		"title":"Screenshots"
+	},
+	{
+		"type":"bool",
+		"title":"Auto-save Screenshots",
+		"desc":"Automatically save screenshots in the specified directory instead of pausing the simulation to open the save prompt",
+		"section":"app",
+		"key":"autosc"
+	},
+	{
+		"type":"pathwithroot",
+		"title":"Screenshot location",
+		"desc":"Location in which to save screenshots taken with the app, if automatic screenshots are enabled.",
+		"section":"app",
+		"key":"scpath"
+	},
+	{
+		"type":"bool",
+		"title":"Complete screenshot",
+		"desc":"Capture the entire simulated area instead of just the visible part in the app window. Warning: this can take some time to finish, and may fail if your device does not have enough GPU memory.",
+		"section":"app",
+		"key":"fullsc"
+	}
+]
