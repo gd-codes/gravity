@@ -49,130 +49,87 @@
 	simulator: simulator
 	calculators: calculators
 	
-	BoxLayout:
-		orientation: 'vertical'
-		
-		ActionBar:
-			ActionView:
-				id: acnview
-				ActionPrevious:
-					with_previous: False
-					app_icon: "icons/Solar-system.png"
-					title: "Gravity"
-					on_release: app.root.infodialog.open()
-				ActionButton:
-					text: "Info"
-					on_release: app.root.helpdialog.open()
-				ActionLabel :
-					text: "Status : "
-				ActionButton : 
-					background_normal: "icons/transparent.png"
-					background_down: "icons/transparent.png"
-					icon: root.simulator.simstateicon
-					color: root.simulator.simstatecolour
-					text: root.simulator.simstatetext
-				
-		TabbedPanel:
-			id: tabpanel
-			#border: [0,0,0,0]
-			#strip_border: [0,0,0,0]
-			tab_pos: root.tabpos
-			tab_width: self.height // len(self.tab_list) if ('left' in self.tab_pos or 'right' in self.tab_pos) else self.width // len(self.tab_list)
-			tab_height: '35dp'
-			do_default_tab: False
+	orientation: 'vertical'
+	
+	ActionBar:
+		ActionView:
+			id: acnview
+			ActionPrevious:
+				with_previous: False
+				app_icon: "icons/Solar-system.png"
+				title: "Gravity"
+				on_release: app.root.infodialog.open()
+			ActionButton:
+				text: "Info"
+				on_release: app.root.helpdialog.open()
+			ActionLabel :
+				text: "Status : "
+			ActionButton : 
+				background_normal: "icons/transparent.png"
+				background_down: "icons/transparent.png"
+				icon: root.simulator.simstateicon
+				color: root.simulator.simstatecolour
+				text: root.simulator.simstatetext
 			
-			TabbedPanelItem:
-				id: createtab
-				text: "Create"
-				
+	TabbedPanel:
+		id: tabpanel
+		#border: [0,0,0,0]
+		#strip_border: [0,0,0,0]
+		tab_pos: root.tabpos
+		tab_width: self.height // len(self.tab_list) if ('left' in self.tab_pos or 'right' in self.tab_pos) else self.width // len(self.tab_list)
+		tab_height: '35dp'
+		do_default_tab: False
+		
+		TabbedPanelItem:
+			id: createtab
+			text: "Create"
+			
+			BoxLayout:
+				orientation: 'vertical'
+				Label:
+					size_hint_y: None
+					height: '15dp'
 				BoxLayout:
-					orientation: 'vertical'
-					Label:
-						size_hint_y: None
-						height: '15dp'
-					BoxLayout:
-						id: createcontrols
-						size_hint: 1, None
-						height: '50dp'
-						pos_hint: {'top':1}
-						Spacer:
-						MButton:
-							text: u" [font=fonts/Iconize-Italic][size=30]+ [/size][/font] Add   "
-							color: [0.6, 0.9, 1, 1]
-							background_color: [0, 0, 0.5, 1]
-							on_release: root.addobj()
-						MButton:
-							text: u" [font=fonts/Iconize-Italic][size=30]{} [/size][/font] Run   ".format(ucd.lookup('RIGHTWARDS ARROW'))
-							color: [0.6, 0.9, 0.6, 1]
-							background_color: [0.1, 0.4, 0, 1]
-							on_release: root.run()
-						MButton:
-							text: u"[font=fonts/Iconize][size=30] s [/size][/font] Save   "
-							on_release: SaveDialog(rootdir=app.config.get('app', 'rootpath'), show=True, action=root.savetofile, fileobj=True, ext='.gty')
-						MButton:
-							text: u"[font=fonts/Iconize][size=30] o [/size][/font] Load   "
-							on_release: OpenDialog(rootdir=app.config.get('app', 'rootpath'), show=True, action=root.loadfile, fileobj=True)
-						MButton:
-							text: u"[font=fonts/Iconize-Italic][size=30] e [/size][/font] Clear   "
-							on_release: root.clearinputs()
-						Spinner:
-							id: templatebtn
-							markup: True
-							text_autoupdate: False
-							background_color: [0.75, 0.75, 0.45, 1]
-							text: u"[font=fonts/Iconize-Italic][size=30] c [/size][/font] Templates   "
-							values: 'a', 'b', 'c'
-							on_text: root.loadtemplate(text=self.text)
-						Spacer:
-					Label:
-						size_hint_y: None
-						height: '15dp'
-						
-					#Spacer:
-					ScrollView:
-						id: create_scrollarea
-						size_hint: 1, 1
-						do_scroll_y: True
-						bar_width: '10dp'
-						scroll_type: ['bars', 'content']
-						canvas.before:
-							Color:
-								rgba: 0.05, 0.05, 0.05, 1
-							Rectangle:
-								size: self.size
-								pos: self.pos
-						BoxLayout:
-							id: createarea
-							height: self.minimum_height
-							padding: '10dp'
-							size_hint_y: None
-							orientation: 'vertical'
-							on_children: root._updateinputindices()
-							Label:
-								size_hint_y: None
-								height: '30dp'
-								halign: 'left'
-								font_size: '14dp'
-								color: [0.8, 0.8, 0.8, 1]
-								text: "Add objects to be simulated and specify their initial coordinates and parameters here : "
-							SettingSpacer:
-							
-						
-				
-			TabbedPanelItem:
-				id: simultab
-				text: "Simulation"
-				
-				Simulator:
-					id: simulator
+					id: createcontrols
+					size_hint: 1, None
+					height: '50dp'
+					pos_hint: {'top':1}
+					Spacer:
+					MButton:
+						text: u" [font=fonts/Iconize-Italic][size=30]+ [/size][/font] Add   "
+						color: [0.6, 0.9, 1, 1]
+						background_color: [0, 0, 0.5, 1]
+						on_release: root.addobj()
+					MButton:
+						text: u" [font=fonts/Iconize-Italic][size=30]{} [/size][/font] Run   ".format(ucd.lookup('RIGHTWARDS ARROW'))
+						color: [0.6, 0.9, 0.6, 1]
+						background_color: [0.1, 0.4, 0, 1]
+						on_release: root.run()
+					MButton:
+						text: u"[font=fonts/Iconize][size=30] s [/size][/font] Save   "
+						on_release: SaveDialog(rootdir=app.config.get('app', 'rootpath'), show=True, action=root.savetofile, fileobj=True, ext='.gty')
+					MButton:
+						text: u"[font=fonts/Iconize][size=30] o [/size][/font] Load   "
+						on_release: OpenDialog(rootdir=app.config.get('app', 'rootpath'), show=True, action=root.loadfile, fileobj=True)
+					MButton:
+						text: u"[font=fonts/Iconize-Italic][size=30] e [/size][/font] Clear   "
+						on_release: root.clearinputs()
+					Spinner:
+						id: templatebtn
+						markup: True
+						text_autoupdate: False
+						background_color: [0.75, 0.75, 0.45, 1]
+						text: u"[font=fonts/Iconize-Italic][size=30] c [/size][/font] Templates   "
+						values: 'a', 'b', 'c'
+						on_text: root.loadtemplate(text=self.text)
+					Spacer:
+				Label:
+					size_hint_y: None
+					height: '15dp'
 					
-				
-			TabbedPanelItem:
-				id: calctab
-				text: "Calculators"
-
+				#Spacer:
 				ScrollView:
-					id: calc_scrollarea
+					id: create_scrollarea
 					size_hint: 1, 1
 					do_scroll_y: True
 					bar_width: '10dp'
@@ -184,28 +141,70 @@
 							size: self.size
 							pos: self.pos
 					BoxLayout:
-						orientation: "vertical"
+						id: createarea
 						height: self.minimum_height
 						padding: '10dp'
 						size_hint_y: None
+						orientation: 'vertical'
+						on_children: root._updateinputindices()
 						Label:
 							size_hint_y: None
-							height: '50dp'
-							halign: 'center'
+							height: '30dp'
+							halign: 'left'
 							font_size: '14dp'
 							color: [0.8, 0.8, 0.8, 1]
-							line_height: 1.5
-							text: "Solve simple equations for a 2 body Newtonian system\nEnter any values below and the rest will be automatically calculated when there is enough info."
+							text: "Add objects to be simulated and specify their initial coordinates and parameters here : "
 						SettingSpacer:
-
-						Calculators:
-							id: calculators
-
+						
+					
+			
+		TabbedPanelItem:
+			id: simultab
+			text: "Simulation"
+			
+			Simulator:
+				id: simulator
 				
-			TabbedPanelItem:
-				id: settingtab
-				text: "Settings"
-				on_release: app.open_settings()
+			
+		TabbedPanelItem:
+			id: calctab
+			text: "Calculators"
+
+			ScrollView:
+				id: calc_scrollarea
+				size_hint: 1, 1
+				do_scroll_y: True
+				bar_width: '10dp'
+				scroll_type: ['bars', 'content']
+				canvas.before:
+					Color:
+						rgba: 0.05, 0.05, 0.05, 1
+					Rectangle:
+						size: self.size
+						pos: self.pos
+				BoxLayout:
+					orientation: "vertical"
+					height: self.minimum_height
+					padding: '10dp'
+					size_hint_y: None
+					Label:
+						size_hint_y: None
+						height: '50dp'
+						halign: 'center'
+						font_size: '14dp'
+						color: [0.8, 0.8, 0.8, 1]
+						line_height: 1.5
+						text: "Solve simple equations for a 2 body Newtonian system\nEnter any values below and the rest will be automatically calculated when there is enough info."
+					SettingSpacer:
+
+					Calculators:
+						id: calculators
+
+			
+		TabbedPanelItem:
+			id: settingtab
+			text: "Settings"
+			on_release: app.open_settings()
 
 
 <PlanetInput>:

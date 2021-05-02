@@ -10,4 +10,5 @@ gravity.ini
 # others
 __pycache__
 .vscode
+*.env
 .DS_Store
