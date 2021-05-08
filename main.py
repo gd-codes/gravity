@@ -2,10 +2,10 @@
 """
 Gravity - Simulation of gravitation between point masses in 2D space
 """
-# gravityapp.py
-# User interface and animation with kivy
-# Gautam D
-# May - June 2020
+# Python 3.7
+
+# Author : gd-codes
+# May 2020 - 2021
 
 from __future__ import annotations
 

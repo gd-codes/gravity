@@ -1112,17 +1112,3 @@ class GravSettings(Settings):
         self.register_type('colour', SettingColour)
 
 
-
-if __name__ == '__main__':
-
-    def junk():
-        print('testing')
-        ColourChooserPopup(show=1, action=lambda x:print(x))
-    class TestApp1(App):
-        def build(self):
-            x = BoxLayout()
-            # x.add_widget(ColourChooser())
-            # x.add_widget(BGLabel(bgcolour=[5,6,7,8]))
-            self.d =InfoDialog(action=junk,show=1)
-            return x
-    ta = TestApp1(); ta.run()
